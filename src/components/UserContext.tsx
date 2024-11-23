@@ -1,5 +1,6 @@
 import { Anthropic } from '@anthropic-ai/sdk';
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
+import { fetchUserDescription } from '../utils/aiApiConnector';
 
 
 const anthropicApiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
@@ -23,40 +24,9 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (prompt) {
-      console.log('prompt', prompt);
-      console.log('anthropicApiKey', anthropicApiKey);
-
-      if (!anthropicApiKey) {
-        console.error('API key is missing');
-        return;
-      }
-
-      const anthropic = new Anthropic({
-        apiKey: anthropicApiKey,
-        dangerouslyAllowBrowser: true,
+      fetchUserDescription(prompt).then(response => {
+        setUserDescription(response.text);
       });
-
-      anthropic.messages.create({
-        model: 'claude-3-sonnet-20240229',
-        max_tokens: 150,
-        messages: [
-          {
-            role: 'user',
-            content: `Describe this person in 2-4 words, print nothing but the description: ${prompt}`,
-          },
-        ],
-      })
-        .then(response => {
-          const text = response.content[0].type === 'text' ? response.content[0].text : '';
-          if (text) {
-            setUserDescription(text);
-          } else {
-            console.error('No text found in response!', response);
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching user description:', error);
-        });
     }
   }, [prompt]);
 
