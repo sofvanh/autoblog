@@ -26,13 +26,12 @@ export function MarkdownRenderer({ markdown }: MarkdownRendererProps) {
   }, [data, metadata]);
 
   return (
-    <article>
-      <div className="flex flex-col gap-2">
-
+    <article className="mb-16">
+      <div className="flex flex-col gap-2 text-gray-500 text-sm">
         {metadata && Object.keys(metadata).length > 0 && (
           <>
             {metadata.map(([key, value]) => (
-              <div key={key} className="text-gray-500 text-sma">
+              <div key={key}>
                 <span>{key}: </span>
                 <span>
                   {Array.isArray(value) ? value.join(', ') : value.toString()}
@@ -42,8 +41,8 @@ export function MarkdownRenderer({ markdown }: MarkdownRendererProps) {
           </>
         )}
         {date && (
-          <div className="text-gray-500 text-sm">
-            <span className="font-medium">Date: </span>
+          <div>
+            <span>Date: </span>
             <span>{date.toLocaleDateString()}</span>
           </div>
         )}
