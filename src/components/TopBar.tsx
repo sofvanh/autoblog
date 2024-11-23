@@ -9,7 +9,7 @@ export default function TopBar() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const newPrompt = formData.get('background') as string;
-    if (newPrompt && newPrompt !== prompt) {
+    if (newPrompt !== prompt) {
       setPrompt(newPrompt);
     }
     modalRef.current?.close();
@@ -17,7 +17,7 @@ export default function TopBar() {
 
   return (
     <>
-      <div className="py-4 bg-gradient-to-r from-green-100 to-teal-400 shadow-sm">
+      <div className="py-4 bg-gradient-to-r from-green-100 to-teal-200 shadow-sm">
         <div className="container mx-auto px-4 flex flex-row items-center">
           <div className="flex items-center space-x-2">
             <h1 className="text-xl bg-clip-text text-emerald-800">
@@ -39,7 +39,7 @@ export default function TopBar() {
             ) : (
               <button
                 onClick={() => modalRef.current?.showModal()}
-                className="bg-emerald-600 text-white py-1.5 px-4 rounded-full font-medium hover:bg-emerald-700 transition-colors"
+                className="btn-primary"
               >
                 Personalize!
               </button>
@@ -68,13 +68,13 @@ export default function TopBar() {
             <button
               type="button"
               onClick={() => modalRef.current?.close()}
-              className="px-4 py-2 text-emerald-700 border border-emerald-300 rounded-full hover:bg-emerald-50 hover:border-emerald-400 transition-colors"
+              className="btn-secondary"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-emerald-300 text-emerald-800 rounded-full font-medium hover:bg-emerald-400 transition-colors border border-emerald-400 hover:border-emerald-500"
+              className="btn-primary"
             >
               Save
             </button>

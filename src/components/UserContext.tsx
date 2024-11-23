@@ -19,12 +19,15 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [userDescription, setUserDescription] = useState<string>(() => localStorage.getItem('userDescription') || '');
 
   useEffect(() => {
+    localStorage.setItem('prompt', prompt);
     if (prompt) {
-      localStorage.setItem('prompt', prompt);
       fetchUserDescription(prompt).then(response => {
         setUserDescription(response.text);
         localStorage.setItem('userDescription', response.text);
       });
+    } else {
+      setUserDescription('');
+      localStorage.removeItem('userDescription');
     }
   }, [prompt]);
 
