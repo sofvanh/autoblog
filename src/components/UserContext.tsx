@@ -1,9 +1,5 @@
-import { Anthropic } from '@anthropic-ai/sdk';
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import { fetchUserDescription } from '../utils/aiApiConnector';
-
-
-const anthropicApiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
 
 interface UserContextProps {
   prompt: string;
@@ -19,13 +15,15 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [prompt, setPrompt] = useState<string>('');
-  const [userDescription, setUserDescription] = useState<string>('');
+  const [prompt, setPrompt] = useState<string>(() => localStorage.getItem('prompt') || '');
+  const [userDescription, setUserDescription] = useState<string>(() => localStorage.getItem('userDescription') || '');
 
   useEffect(() => {
     if (prompt) {
+      localStorage.setItem('prompt', prompt);
       fetchUserDescription(prompt).then(response => {
         setUserDescription(response.text);
+        localStorage.setItem('userDescription', response.text);
       });
     }
   }, [prompt]);
