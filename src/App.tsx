@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { MarkdownRenderer } from './components/MarkdownRenderer'
+import TopBar from './components/TopBar'
+import { UserProvider } from './components/UserContext'
 
-function App() {
+export default function App() {
   const [content, setContent] = useState('')
 
   useEffect(() => {
@@ -12,12 +14,13 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen w-full">
-      <div className="container mx-auto px-4">
-        <MarkdownRenderer markdown={content} />
+    <UserProvider>
+      <div className="min-h-screen w-full">
+        <TopBar />
+        <div className="container mx-auto px-4 mt-8">
+          <MarkdownRenderer markdown={content} />
+        </div>
       </div>
-    </div>
+    </UserProvider>
   )
 }
-
-export default App
