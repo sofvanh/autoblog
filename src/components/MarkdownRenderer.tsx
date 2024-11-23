@@ -16,12 +16,14 @@ export function MarkdownRenderer({ markdown }: MarkdownRendererProps) {
       if (data.date) {
         setDate(data.date);
       }
-      // const remainingData = Object.entries(data).filter(([key]) => key !== 'date');
-      // setMetadata(remainingData);
+      const remainingData = Object.entries(data).filter(([key]) => key !== 'date');
+      if (JSON.stringify(remainingData) !== JSON.stringify(metadata)) {
+        setMetadata(remainingData);
+      }
     } else {
       setMetadata([]);
     }
-  }, [data]);
+  }, [data, metadata]);
 
   return (
     <article>
