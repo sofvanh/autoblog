@@ -50,8 +50,20 @@ export async function fetchModifiedMarkdown(markdown: string, userPrompt: string
       messages: [
         {
           role: 'user',
-          content: `Here is a markdown file that hasn't been polished for viewing. Making as few changes as possible, modify it so that it's fit for viewing online, and consider personalizing it slightly for this particular viewer using the following prompt: ${userPrompt}. Try to retain the style of the original as much as possible, including any links and other formatting. Don't exclude content that seems important to the original author. Print nothing but the modified markdown. Don't address the viewer directly, unless so is done in the original. The background of the viewer is only relevant as far as presenting the information in a way that is legible to the viewer.
-          Markdown: ${markdown}`,
+          content:
+            `You will receive a markdown file, and you will make small changes based on the requirements:
+- Keep all the links and quotes as they are (you're allowed to move them around)
+  - [[Example of a markdown-to-markdown link]]
+  - [Example of an external link](https://example.com)
+  > Example of a quote
+- Retain the style of the original as much as possible, including formatting and structure
+- Don't exclude content that seems important to the original author
+- Print nothing but the modified markdown
+- Do minor cleaning so that it's fit for viewing online, and suitable for the current viewer
+  - The description of the viewer is: ${userPrompt}
+          
+Markdown: 
+${markdown}`,
         },
       ],
     });

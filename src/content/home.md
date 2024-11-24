@@ -1,12 +1,15 @@
 ---
-title: Autoblog
+title: Home
 date: 2024-11-23
 ---
 
-## Explanation
+# Sofi's notes
 
-As part of the [[Live machinery workshop]], I'm making an app exploring live interfaces / autostructures in blogging. Authors can just dump in their messy working notes, with maybe some 'prayers' about how they're displayed. Users describe themselves to the AI which then on the frontend side regenerates each note as the user views them, fit for the eyes for that person.
+Welcome to my live working notes. Inspired by [[Live machnery]], the notes here are unpolished but true to me; Through this website, they will adapt to you, the viewer.
 
-## Tech stack
+I think (=write) about tech and AI, utopias, governance, biohacking, etc.
 
-Stack: React, TypeScript, Tailwind, Vite. Anthropic API. React Context API. Demo version can be without server; Final version should def incoroporate backend.
+Here are some places to get started:
+
+- [[Autoblog]], this blog, built at [[Live machinery workshop]]
+- [[Why improving the state of deliberation is important]]

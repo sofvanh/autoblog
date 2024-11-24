@@ -26,7 +26,7 @@ export function MarkdownRenderer({ markdown }: MarkdownRendererProps) {
   }, [data, metadata]);
 
   return (
-    <article className="mb-16">
+    <article className="pb-32">
       <div className="flex flex-col gap-2 text-gray-500 text-sm">
         {metadata && Object.keys(metadata).length > 0 && (
           <>
