@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { MarkdownRenderer } from "./MarkdownRenderer";
 import { useUserContext } from "./UserContext";
 import { fetchModifiedMarkdown } from "../utils/aiApiConnector";
+import { loadMarkdownFile, processWikiLinks } from "../utils/markdownLoader";
 import ToggleButton from "./ToggleButton";
 
 export default function MarkdownCustomizer() {
+  const { '*': path } = useParams();
+  const navigate = useNavigate();
   const { userDescription } = useUserContext();
   const [content, setContent] = useState('');
   const [modifiedContent, setModifiedContent] = useState('');
@@ -12,15 +16,20 @@ export default function MarkdownCustomizer() {
   const { prompt } = useUserContext();
 
   useEffect(() => {
-    fetch('/src/content/hello.md')
-      .then(res => res.text())
-      .then(text => setContent(text));
-  }, []);
+    loadMarkdownFile(path || 'Home')
+      .then(text => {
+        const processedText = processWikiLinks(text);
+        setContent(processedText);
+      })
+      .catch(() => {
+        navigate('/404');
+      });
+  }, [path, navigate]);
 
   useEffect(() => {
     if (content && prompt) {
       fetchModifiedMarkdown(content, prompt).then(response => {
-        setModifiedContent(response.text);
+        setModifiedContent(processWikiLinks(response.text));
         setShowModified(true);
       });
     } else if (content) {
@@ -35,6 +44,8 @@ export default function MarkdownCustomizer() {
     }
     setShowModified(prev => !prev);
   };
+
+  // TODO Fix - if the user removes their description, the toggle button resets but the content is still modified.
 
   return (
     <div>

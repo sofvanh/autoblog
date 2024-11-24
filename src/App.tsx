@@ -1,6 +1,6 @@
+import { Outlet } from 'react-router-dom'
 import TopBar from './components/TopBar'
 import { UserProvider } from './components/UserContext'
-import MarkdownCustomizer from './components/MarkdownCustomizer'
 
 export default function App() {
   return (
@@ -8,7 +8,7 @@ export default function App() {
       <div className="min-h-screen w-full">
         <TopBar />
         <div className="container mx-auto px-4 mt-8">
-          <MarkdownCustomizer />
+          <Outlet />
         </div>
       </div>
     </UserProvider>

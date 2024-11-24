@@ -1,5 +1,5 @@
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
-import { fetchUserDescription } from '../utils/aiApiConnector';
+import { fetchUserDescription } from '../utils/aiApiConnector.tsx';
 
 interface UserContextProps {
   prompt: string;
@@ -19,6 +19,11 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [userDescription, setUserDescription] = useState<string>(() => localStorage.getItem('userDescription') || '');
 
   useEffect(() => {
+    const previousPrompt = localStorage.getItem('prompt');
+    if (prompt === previousPrompt) {
+      return;
+    }
+
     localStorage.setItem('prompt', prompt);
     if (prompt) {
       fetchUserDescription(prompt).then(response => {

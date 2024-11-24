@@ -20,9 +20,9 @@ export default function TopBar() {
       <div className="py-4 bg-gradient-to-r from-green-100 to-teal-200 shadow-sm">
         <div className="container mx-auto px-4 flex flex-row items-center">
           <div className="flex items-center space-x-2">
-            <h1 className="text-xl bg-clip-text text-emerald-800">
+            <a href="/" className="text-xl bg-clip-text text-emerald-800">
               Sofi's Working Notes
-            </h1>
+            </a>
           </div>
 
           <div className="ml-auto">
