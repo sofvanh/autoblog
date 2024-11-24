@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 
 interface MarkdownRendererProps {
   markdown: string;
+  isModified?: boolean;
 }
 
-export function MarkdownRenderer({ markdown }: MarkdownRendererProps) {
+export function MarkdownRenderer({ markdown, isModified = false }: MarkdownRendererProps) {
   const { data, content } = matter(markdown ?? '')
   const [date, setDate] = useState<Date | undefined>(data?.date);
   const [metadata, setMetadata] = useState<[string, any][]>([]);
@@ -47,7 +48,7 @@ export function MarkdownRenderer({ markdown }: MarkdownRendererProps) {
           </div>
         )}
       </div>
-      <div className="prose prose-lg mt-8">
+      <div className={`prose prose-lg mt-8 ${isModified ? '!font-ai' : '!font-handwritten text-xl'}`}>
         <ReactMarkdown>{content}</ReactMarkdown>
       </div>
     </article>

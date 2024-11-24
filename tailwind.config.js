@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
@@ -8,6 +7,8 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+        handwritten: ['Patrick Hand SC', 'cursive'],
+        ai: ['Newsreader', 'serif'],
       },
     },
   },

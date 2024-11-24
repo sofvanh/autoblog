@@ -53,7 +53,10 @@ export default function MarkdownCustomizer() {
 
   return (
     <div>
-      <MarkdownRenderer markdown={showModified ? (modifiedContent || content) : content} />
+      <MarkdownRenderer
+        markdown={showModified ? (modifiedContent || content) : content}
+        isModified={showModified && !!modifiedContent}
+      />
       <ToggleButton showModified={!!userDescription && showModified} toggleContent={toggleContent} optionOne="Original" optionTwo="Modified" />
     </div>
   );
