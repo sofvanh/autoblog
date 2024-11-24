@@ -1,4 +1,5 @@
 ---
+title: Why improving the state of deliberation is important
 date: 2024-09-30
 ---
 Many scholars think of [[Deliberative democracy]] as the ideal, but we are far from it. The modern version would look like [[Deliberative digital democracy]], but we are on course toward [[Liberal-individualist digital democracy]]: [[The liberal-individualist position on digital democracy has become the de facto default]].

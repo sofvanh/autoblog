@@ -1,4 +1,9 @@
 ---
+title: Liberal-individualist digital democracy
+tags: 
+  - democracy
+  - liberalism
+  - status-quo
 date: 2024-01-25
 ---
 
