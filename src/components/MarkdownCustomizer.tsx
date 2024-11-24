@@ -28,9 +28,13 @@ export default function MarkdownCustomizer() {
 
   useEffect(() => {
     if (content && prompt) {
+      setModifiedContent('Generating personalized version...');
       fetchModifiedMarkdown(content, prompt).then(response => {
         setModifiedContent(processWikiLinks(response.text));
         setShowModified(true);
+      }).catch(error => {
+        console.error('Error fetching modified markdown:', error);
+        setModifiedContent('(error)');
       });
     } else if (content) {
       setModifiedContent('');

@@ -26,9 +26,13 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
     localStorage.setItem('prompt', prompt);
     if (prompt) {
+      setUserDescription('loading...');
       fetchUserDescription(prompt).then(response => {
         setUserDescription(response.text);
         localStorage.setItem('userDescription', response.text);
+      }).catch(error => {
+        console.error('Error fetching user description:', error);
+        setUserDescription('(error)');
       });
     } else {
       setUserDescription('');
