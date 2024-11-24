@@ -56,7 +56,7 @@ export async function fetchModifiedMarkdown(markdown: string, userPrompt: string
   - [[Example of a markdown-to-markdown link]]
   - [Example of an external link](https://example.com)
   > Example of a quote
-- Retain the style of the original as much as possible, including formatting and structure
+- Retain the style of the original as much as possible, including formatting and structure, but fix typos, unclear and very informal language, etc.
 - Don't exclude content that seems important to the original author
 - Print nothing but the modified markdown! What you return will be directly used as markdown, so make sure it's valid markdown, and nothing else.
 - Do minor cleaning so that it's fit for viewing online, and suitable for the current viewer
