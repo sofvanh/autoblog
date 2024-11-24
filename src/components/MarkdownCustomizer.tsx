@@ -57,7 +57,7 @@ export default function MarkdownCustomizer() {
         markdown={showModified ? (modifiedContent || content) : content}
         isModified={showModified && !!modifiedContent}
       />
-      <ToggleButton showModified={!!userDescription && showModified} toggleContent={toggleContent} optionOne="Original" optionTwo="Modified" />
+      <ToggleButton showModified={!!userDescription && showModified} toggleContent={toggleContent} optionOne="Original" optionTwo="Personalized" />
     </div>
   );
 }
