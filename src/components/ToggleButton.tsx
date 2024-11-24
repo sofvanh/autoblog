@@ -30,7 +30,7 @@ export default function ToggleButton({ showModified, toggleContent, optionOne, o
         />
       </div>
 
-      <span className="text-sm font-medium text-gray-600">
+      <span className="text-sm font-medium text-emerald-800">
         {optionTwo}
       </span>
     </button>
