@@ -16,3 +16,5 @@ date: 2024-11-23
 - Performance optimization: lazy loading markdown files significantly reduced initial load times.
 - User feedback indicates a need for more customization options in the AI-generated content.
 - Planning to integrate a backend service to handle markdown processing and storage for better scalability.
+
+{{Here, don't show a list of bullets, write it out better.}}
