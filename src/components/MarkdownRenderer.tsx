@@ -9,6 +9,7 @@ interface MarkdownRendererProps {
 
 export function MarkdownRenderer({ markdown, isModified = false }: MarkdownRendererProps) {
   const { data, content } = matter(markdown ?? '')
+  const [title, setTitle] = useState<string | undefined>(data?.title);
   const [date, setDate] = useState<Date | undefined>(data?.date);
   const [metadata, setMetadata] = useState<[string, any][]>([]);
 
@@ -17,7 +18,10 @@ export function MarkdownRenderer({ markdown, isModified = false }: MarkdownRende
       if (data.date) {
         setDate(data.date);
       }
-      const remainingData = Object.entries(data).filter(([key]) => key !== 'date');
+      if (data.title) {
+        setTitle(data.title);
+      }
+      const remainingData = Object.entries(data).filter(([key]) => key !== 'date' && key !== 'title');
       if (JSON.stringify(remainingData) !== JSON.stringify(metadata)) {
         setMetadata(remainingData);
       }
@@ -28,6 +32,9 @@ export function MarkdownRenderer({ markdown, isModified = false }: MarkdownRende
 
   return (
     <article className="pb-32">
+      {title && (
+        <h1 className="text-2xl font-bold mb-4">{title}</h1>
+      )}
       <div className="flex flex-col gap-2 text-gray-500 text-sm">
         {metadata && Object.keys(metadata).length > 0 && (
           <>
