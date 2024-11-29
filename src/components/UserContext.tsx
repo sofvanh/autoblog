@@ -1,5 +1,7 @@
+'use client';
+
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
-import { fetchUserDescription } from '../utils/aiApiConnector.tsx';
+import { fetchUserDescription } from '@/utils/aiApiConnector';
 
 interface UserContextProps {
   prompt: string;
@@ -15,8 +17,15 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [prompt, setPrompt] = useState<string>(() => localStorage.getItem('prompt') || '');
-  const [userDescription, setUserDescription] = useState<string>(() => localStorage.getItem('userDescription') || '');
+  const [prompt, setPrompt] = useState<string>('');
+  const [userDescription, setUserDescription] = useState<string>('');
+
+  useEffect(() => {
+    const savedPrompt = localStorage.getItem('prompt') || '';
+    const savedDescription = localStorage.getItem('userDescription') || '';
+    setPrompt(savedPrompt);
+    setUserDescription(savedDescription);
+  }, []);
 
   useEffect(() => {
     const previousPrompt = localStorage.getItem('prompt');
@@ -47,10 +56,10 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   );
 };
 
-export const useUserContext = () => {
+export function useUserContext() {
   const context = React.useContext(UserContext);
   if (context === undefined) {
     throw new Error('useUserContext must be used within a UserProvider');
   }
   return context;
-};
+}

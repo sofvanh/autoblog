@@ -1,4 +1,7 @@
-import { useUserContext } from './UserContext';
+'use client';
+
+import Link from 'next/link';
+import { useUserContext } from '@/components/UserContext';
 import { useRef, useState } from 'react';
 
 

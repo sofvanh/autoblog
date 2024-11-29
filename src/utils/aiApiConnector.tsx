@@ -1,7 +1,7 @@
 import { Anthropic } from "@anthropic-ai/sdk";
 
 
-const anthropicApiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
+const anthropicApiKey = process.env.NEXT_PUBLIC_ANTHROPIC_API_KEY;
 
 if (!anthropicApiKey) {
   throw new Error('API key is missing');
