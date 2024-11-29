@@ -21,6 +21,7 @@ export default function TopBar() {
   const modalRef = useRef<HTMLDialogElement>(null);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
+  // TODO Store these better, right now the buttons get reset
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
