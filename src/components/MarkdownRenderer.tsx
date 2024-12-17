@@ -1,6 +1,7 @@
 import ReactMarkdown from 'react-markdown'
 import matter from 'gray-matter'
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 interface MarkdownRendererProps {
   markdown: string;
@@ -68,7 +69,18 @@ export function MarkdownRenderer({ markdown, isModified = false }: MarkdownRende
             'font-ai' :
             'font-handwritten text-xl'}`}
       >
-        <ReactMarkdown>{content}</ReactMarkdown>
+        <ReactMarkdown
+          components={{
+            a: ({ href, children }) => {
+              if (href?.startsWith('/')) {
+                return <Link href={href}>{children}</Link>;
+              }
+              return <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
+            },
+          }}
+        >
+          {content}
+        </ReactMarkdown>
       </div>
     </article>
   )
