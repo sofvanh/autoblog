@@ -4,11 +4,12 @@ import TopBar from "@/components/TopBar";
 import { UserProvider } from "@/components/UserContext";
 import { Inter, Newsreader, Patrick_Hand_SC } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
-const newsreader = Newsreader({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const newsreader = Newsreader({ subsets: ['latin'], variable: '--font-newsreader' });
 const patrickHandSC = Patrick_Hand_SC({
   subsets: ['latin'],
-  weight: ['400']
+  weight: ['400'],
+  variable: '--font-patrick-hand-sc',
 });
 
 export const metadata: Metadata = {
@@ -23,10 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${patrickHandSC.variable} ${inter.variable} ${newsreader.variable}`}>
         <UserProvider>
           <TopBar />
-          {children}
+          <div className="p-8 flex flex-col justify-center items-center">
+            {children}
+          </div>
         </UserProvider>
       </body>
     </html>

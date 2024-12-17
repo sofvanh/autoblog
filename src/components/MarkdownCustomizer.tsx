@@ -1,14 +1,20 @@
+'use client';
+
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { MarkdownRenderer } from "./MarkdownRenderer";
 import { useUserContext } from "./UserContext";
-import { fetchModifiedMarkdown } from "../utils/aiApiConnector";
-import { loadMarkdownFile, processWikiLinks } from "../utils/markdownLoader";
+import { fetchModifiedMarkdown } from "@/utils/aiApiConnector";
+import { loadMarkdownFile, processWikiLinks } from "@/utils/markdownLoader";
 import ToggleButton from "./ToggleButton";
 
-export default function MarkdownCustomizer() {
-  const { '*': path } = useParams();
-  const navigate = useNavigate();
+interface MarkdownCustomizerProps {
+  path?: string;
+}
+
+// TODO Make the markdown fetching happen on the server
+export function MarkdownCustomizer({ path = 'Home' }: MarkdownCustomizerProps) {
+  const router = useRouter();
   const { userDescription } = useUserContext();
   const [content, setContent] = useState('');
   const [modifiedContent, setModifiedContent] = useState('');
@@ -16,15 +22,15 @@ export default function MarkdownCustomizer() {
   const { prompt } = useUserContext();
 
   useEffect(() => {
-    loadMarkdownFile(path || 'Home')
+    loadMarkdownFile(path)
       .then(text => {
         const processedText = processWikiLinks(text);
         setContent(processedText);
       })
       .catch(() => {
-        navigate('/404');
+        router.push('/404');
       });
-  }, [path, navigate]);
+  }, [path, router]);
 
   useEffect(() => {
     if (content && prompt) {

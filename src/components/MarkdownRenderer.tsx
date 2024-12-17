@@ -31,7 +31,7 @@ export function MarkdownRenderer({ markdown, isModified = false }: MarkdownRende
   }, [data, metadata]);
 
   return (
-    <article className="pb-32">
+    <article className="pb-32 prose">
       {title && (
         <h1 className="text-2xl font-bold mb-4">{title}</h1>
       )}
@@ -61,7 +61,13 @@ export function MarkdownRenderer({ markdown, isModified = false }: MarkdownRende
           <button className="text-rose-500 font-bold">x</button> {/* TODO Make it so that this can actually be closed. */}
         </div>
       )}
-      <div className={`prose prose-lg mt-8 ${isModified ? '!font-ai' : '!font-handwritten text-xl'}`}>
+      <div
+        className={
+          `mt-8 
+        ${isModified ?
+            'font-ai' :
+            'font-handwritten text-xl'}`}
+      >
         <ReactMarkdown>{content}</ReactMarkdown>
       </div>
     </article>

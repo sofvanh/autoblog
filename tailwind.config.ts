@@ -14,8 +14,8 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
-        handwritten: ['Patrick Hand SC', 'cursive'],
-        ai: ['Newsreader', 'serif'],
+        handwritten: ['var(--font-patrick-hand-sc)', 'cursive'],
+        ai: ['var(--font-newsreader)', 'serif'],
       },
     },
   },

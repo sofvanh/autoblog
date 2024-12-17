@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
+    "autoprefixer": "^10.4.20",
     "buffer": "^6.0.3",
     "gray-matter": "^4.0.3",
     "next": "^14.2.18",
