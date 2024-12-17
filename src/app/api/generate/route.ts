@@ -1,31 +1,8 @@
-import { Anthropic } from "@anthropic-ai/sdk";
-
-const anthropicApiKey = process.env.ANTHROPIC_API_KEY;
-
-if (!anthropicApiKey) {
-  throw new Error('API key is missing');
-}
-
-const anthropic = new Anthropic({
-  apiKey: anthropicApiKey,
-});
+import { generate } from "@/utils/anthropicClient";
 
 export async function POST(request: Request) {
-  try {
-    const { markdown, userPrompt } = await request.json();
-
-    if (!markdown || !userPrompt) {
-      return new Response('Missing required fields', { status: 400 });
-    }
-
-    const response = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-latest',
-      max_tokens: 8192,
-      messages: [
-        {
-          role: 'user',
-          content:
-            `You will receive a markdown file, and you will make small changes based on the requirements:
+  const { markdown, userPrompt } = await request.json();
+  const fullPrompt = `You will receive a markdown file, and you will make small changes based on the requirements:
 - Keep all the links and quotes as they are (you're allowed to move them around)
   - [[Example of a markdown-to-markdown link]]
   - [Example of an external link](https://example.com)
@@ -40,21 +17,8 @@ export async function POST(request: Request) {
 
           
 Markdown: 
-${markdown}`,
-        },
-      ],
-    });
-
-    const text = response.content[0].type === 'text' ? response.content[0].text : '';
-
-    return new Response(JSON.stringify({ text }), {
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (error) {
-    console.error('Error generating markdown:', error);
-    return new Response(JSON.stringify({ error: 'Failed to generate markdown' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+${markdown}`
+  const maxTokens = 8192;
+  const response = await generate(fullPrompt, maxTokens);
+  return response;
 }
