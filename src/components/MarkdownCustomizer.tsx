@@ -13,12 +13,12 @@ interface MarkdownCustomizerProps {
 export function MarkdownCustomizer({ initialContent }: MarkdownCustomizerProps) {
   const [modifiedContent, setModifiedContent] = useState('');
   const [showModified, setShowModified] = useState(true);
-  const { prompt } = useUserContext();
+  const { selectedOptions, customPrompt } = useUserContext();
 
   useEffect(() => {
-    if (initialContent && prompt) {
+    if (initialContent && (selectedOptions.length > 0 || customPrompt)) {
       setModifiedContent('Generating personalized version...');
-      fetchModifiedMarkdown(initialContent, prompt)
+      fetchModifiedMarkdown(initialContent, selectedOptions, customPrompt)
         .then(response => {
           setModifiedContent(response.text);
           setShowModified(true);
@@ -30,7 +30,7 @@ export function MarkdownCustomizer({ initialContent }: MarkdownCustomizerProps) 
     } else {
       setModifiedContent('');
     }
-  }, [initialContent, prompt]);
+  }, [initialContent, selectedOptions, customPrompt]);
 
   const toggleContent = () => setShowModified(!showModified);
 
@@ -42,7 +42,7 @@ export function MarkdownCustomizer({ initialContent }: MarkdownCustomizerProps) 
           isModified={showModified && !!modifiedContent}
         />
       </div>
-      {prompt && (
+      {(selectedOptions.length > 0 || customPrompt) && (
         <ToggleButton
           showModified={showModified}
           toggleContent={toggleContent}

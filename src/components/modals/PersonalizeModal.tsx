@@ -1,44 +1,32 @@
 import { useState } from 'react';
 import Modal from './Modal';
+import { PRESET_OPTIONS } from '@/types/personalization';
+import { useUserContext } from '@/components/UserContext';
+
+
+// TODO: Warn before exiting without saving (and if exiting without saving, reset selected options)
 
 interface PersonalizeModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (prompt: string) => void;
-  initialPrompt: string;
 }
 
-const presetOptions = [
-  "Artificial intelligence",
-  "Utopias",
-  "Digital democracy",
-  "Interface design",
-  "Effective altruism",
-  "I know the author",
-  "I have a technical background",
-  "I have a governance background"
-];
-
-export default function PersonalizeModal({ isOpen, onClose, onSubmit, initialPrompt }: PersonalizeModalProps) {
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+export default function PersonalizeModal({ isOpen, onClose }: PersonalizeModalProps) {
+  const { selectedOptions, customPrompt, setCustomPrompt, setSelectedOptions } = useUserContext();
+  const [localSelectedOptions, setLocalSelectedOptions] = useState<string[]>(selectedOptions);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const customText = formData.get('background') as string;
-    const newPrompt = [
-      ...selectedOptions,
-      customText
-    ].filter(Boolean).join('. ');
-
-    onSubmit(newPrompt);
+    const customPrompt = formData.get('background') as string;
+    setSelectedOptions(localSelectedOptions);
+    setCustomPrompt(customPrompt || '');
     onClose();
   };
-
   const toggleOption = (option: string) => {
-    setSelectedOptions(prev =>
+    setLocalSelectedOptions(prev =>
       prev.includes(option)
-        ? prev.filter(o => o !== option)
+        ? prev.filter(opt => opt !== option)
         : [...prev, option]
     );
   };
@@ -53,12 +41,12 @@ export default function PersonalizeModal({ isOpen, onClose, onSubmit, initialPro
       </p>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-wrap gap-2 mb-4">
-          {presetOptions.map(option => (
+          {PRESET_OPTIONS.map(option => (
             <button
               key={option}
               type="button"
               onClick={() => toggleOption(option)}
-              className={`${selectedOptions.includes(option)
+              className={`${localSelectedOptions.includes(option)
                 ? 'btn-primary text-xs px-2 py-1'
                 : 'btn-secondary text-xs px-2 py-1'
                 }`}
@@ -71,7 +59,7 @@ export default function PersonalizeModal({ isOpen, onClose, onSubmit, initialPro
           name="background"
           className="w-full p-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all bg-white text-sm"
           placeholder="Additional information about your background, interests, and preferences"
-          defaultValue={initialPrompt}
+          defaultValue={customPrompt}
         />
         <div className="flex justify-end gap-3 mt-4">
           <button

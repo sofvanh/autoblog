@@ -5,14 +5,14 @@ interface AIResponse {
   text: string;
 }
 
-export async function fetchUserDescription(prompt: string): Promise<AIResponse> {
+export async function fetchUserDescription(selectedOptions: string[], customPrompt: string): Promise<AIResponse> {
   try {
     const response = await fetch('/api/describe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ selectedOptions, customPrompt }),
     });
 
     if (!response.ok) {
@@ -27,14 +27,14 @@ export async function fetchUserDescription(prompt: string): Promise<AIResponse> 
   }
 }
 
-export async function fetchModifiedMarkdown(markdown: string, userPrompt: string): Promise<AIResponse> {
+export async function fetchModifiedMarkdown(markdown: string, selectedOptions: string[], customPrompt: string): Promise<AIResponse> {
   try {
     const response = await fetch('/api/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ markdown, userPrompt }),
+      body: JSON.stringify({ markdown, selectedOptions, customPrompt }),
     });
 
     if (!response.ok) {

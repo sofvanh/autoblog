@@ -5,7 +5,7 @@ import { useUserContext } from '@/components/UserContext';
 import PersonalizeModal from '@/components/modals/PersonalizeModal';
 
 export default function PersonalizeButton() {
-  const { prompt, userDescription, setPrompt } = useUserContext();
+  const { userDescription } = useUserContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -32,8 +32,6 @@ export default function PersonalizeButton() {
       <PersonalizeModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSubmit={setPrompt}
-        initialPrompt={prompt}
       />
     </>
   );

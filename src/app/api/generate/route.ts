@@ -1,7 +1,8 @@
 import { generate } from "@/utils/anthropicClient";
 
+
 export async function POST(request: Request) {
-  const { markdown, userPrompt } = await request.json();
+  const { markdown, selectedOptions, customPrompt } = await request.json();
   const fullPrompt = `You will receive a markdown file, and you will make small changes based on the requirements:
 - Keep all the links and quotes as they are (you're allowed to move them around)
   - [[Example of a markdown-to-markdown link]]
@@ -11,7 +12,8 @@ export async function POST(request: Request) {
 - Don't exclude content that seems important to the original author
 - Print nothing but the modified markdown! What you return will be directly used as markdown, so make sure it's valid markdown, and nothing else.
 - Do minor cleaning so that it's fit for viewing online, and suitable for the current viewer, for example by removing or quickly explaining jargon
-  - The description of the viewer is: ${userPrompt}
+  - The user has selected the following 0+ options of interests, descriptors, etc: ${selectedOptions}
+  - The user has written the following description of themselves or their preferences: ${customPrompt}
 - Always fulfill the author's inline wishes, and don't show the wish itself in the output.
   - {{Example of an inline wish}}
 
