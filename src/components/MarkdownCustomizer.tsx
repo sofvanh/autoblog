@@ -1,69 +1,55 @@
 'use client';
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { MarkdownRenderer } from "./MarkdownRenderer";
-import { useUserContext } from "./UserContext";
-import { fetchModifiedMarkdown } from "@/utils/aiApiConnector";
-import { loadMarkdownFile, processWikiLinks } from "@/utils/markdownLoader";
-import ToggleButton from "./ToggleButton";
+import { useEffect, useState } from 'react';
+import { useUserContext } from './UserContext';
+import { fetchModifiedMarkdown } from '@/utils/aiApiConnector';
+import { MarkdownRenderer } from './MarkdownRenderer';
+import ToggleButton from './ToggleButton';
 
 interface MarkdownCustomizerProps {
-  path?: string;
+  initialContent: string;
 }
 
-// TODO Make the markdown fetching happen on the server
-export function MarkdownCustomizer({ path = 'Home' }: MarkdownCustomizerProps) {
-  const router = useRouter();
-  const { userDescription } = useUserContext();
-  const [content, setContent] = useState('');
+export function MarkdownCustomizer({ initialContent }: MarkdownCustomizerProps) {
   const [modifiedContent, setModifiedContent] = useState('');
   const [showModified, setShowModified] = useState(true);
   const { prompt } = useUserContext();
 
   useEffect(() => {
-    loadMarkdownFile(path)
-      .then(text => {
-        const processedText = processWikiLinks(text);
-        setContent(processedText);
-      })
-      .catch(() => {
-        router.push('/404');
-      });
-  }, [path, router]);
-
-  useEffect(() => {
-    if (content && prompt) {
+    if (initialContent && prompt) {
       setModifiedContent('Generating personalized version...');
-      fetchModifiedMarkdown(content, prompt).then(response => {
-        setModifiedContent(processWikiLinks(response.text));
-        setShowModified(true);
-      }).catch(error => {
-        console.error('Error fetching modified markdown:', error);
-        setModifiedContent('(error)');
-      });
-    } else if (content) {
+      fetchModifiedMarkdown(initialContent, prompt)
+        .then(response => {
+          setModifiedContent(response.text);
+          setShowModified(true);
+        })
+        .catch(error => {
+          console.error('Error fetching modified markdown:', error);
+          setModifiedContent('(error)');
+        });
+    } else {
       setModifiedContent('');
     }
-  }, [content, prompt]);
+  }, [initialContent, prompt]);
 
-  const toggleContent = () => {
-    if (!userDescription) {
-      // TODO: Show a modal to ask the user to personalize the site first
-      return;
-    }
-    setShowModified(prev => !prev);
-  };
-
-  // TODO Fix - if the user removes their description, the toggle button resets but the content is still modified.
+  const toggleContent = () => setShowModified(!showModified);
 
   return (
-    <div>
-      <MarkdownRenderer
-        markdown={showModified ? (modifiedContent || content) : content}
-        isModified={showModified && !!modifiedContent}
-      />
-      <ToggleButton showModified={!!userDescription && showModified} toggleContent={toggleContent} optionOne="Original" optionTwo="Personalized" />
+    <div className="w-full max-w-3xl">
+      <div className="prose max-w-none">
+        <MarkdownRenderer
+          markdown={showModified && modifiedContent ? modifiedContent : initialContent}
+          isModified={showModified && !!modifiedContent}
+        />
+      </div>
+      {prompt && (
+        <ToggleButton
+          showModified={showModified}
+          toggleContent={toggleContent}
+          optionOne="Original"
+          optionTwo="Personalized"
+        />
+      )}
     </div>
   );
 }

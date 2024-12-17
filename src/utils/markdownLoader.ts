@@ -1,13 +1,15 @@
-export async function loadMarkdownFile(path: string): Promise<string> {
-  const normalizedPath = path || 'Home';
-  let response = await fetch(`/content/${normalizedPath}.md`);
+import { promises as fs } from 'fs';
+import path from "path";
 
-  if (!response?.ok) {
-    throw new Error(`File not found: ${normalizedPath}`);
+export async function getMarkdownContent(slug: string) {
+  const contentDirectory = path.join(process.cwd(), 'public', 'content');
+  try {
+    const fullPath = path.join(contentDirectory, `${slug}.md`);
+    const fileContent = await fs.readFile(fullPath, 'utf8');
+    return processWikiLinks(fileContent);
+  } catch (error) {
+    throw new Error(`File not found: ${slug}`);
   }
-
-  const text = await response.text();
-  return text;
 }
 
 export function processWikiLinks(content: string): string {

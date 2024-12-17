@@ -24,13 +24,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${patrickHandSC.variable} ${inter.variable} ${newsreader.variable}`}>
-        <UserProvider>
-          <TopBar />
-          <div className="p-8 flex flex-col justify-center items-center">
-            {children}
-          </div>
-        </UserProvider>
+      <body suppressHydrationWarning={true}>
+        <div className={`${patrickHandSC.variable} ${inter.variable} ${newsreader.variable}`}>
+          <UserProvider>
+            <TopBar />
+            <div className="p-8 flex flex-col justify-center items-center">
+              {children}
+            </div>
+          </UserProvider>
+        </div>
       </body>
     </html>
   );
