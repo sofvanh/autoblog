@@ -4,12 +4,21 @@ import TopBar from "@/components/TopBar";
 import { UserProvider } from "@/components/UserContext";
 import { Inter, Newsreader, Patrick_Hand_SC } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const newsreader = Newsreader({ subsets: ['latin'], variable: '--font-newsreader' });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  variable: '--font-newsreader',
+  display: 'swap',
+});
 const patrickHandSC = Patrick_Hand_SC({
   subsets: ['latin'],
   weight: ['400'],
   variable: '--font-patrick-hand-sc',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
