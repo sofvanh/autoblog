@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import CloseButton from '../buttons/CloseButton';
 
 interface ModalProps {
   isOpen: boolean;
@@ -32,14 +33,7 @@ export default function Modal({ isOpen, onClose, children, title }: ModalProps) 
         open={isOpen}
         className="relative z-10 p-8 rounded-xl shadow-xl w-full max-w-md border border-emerald-100 bg-gradient-to-b from-white to-emerald-50"
       >
-        <button
-          type="button"
-          onClick={onClose}
-          className="btn-close absolute top-2 right-2"
-          aria-label="Close"
-        >
-          &times;
-        </button>
+        <CloseButton onClose={onClose} />
         <h2 className="text-2xl font-semibold mb-2 text-emerald-800">{title}</h2>
         {children}
       </dialog>
