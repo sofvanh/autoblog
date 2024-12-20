@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useUserContext } from '@/components/UserContext';
+import { useUserContext } from '@/components/contexts/UserContext';
 import PersonalizeModal from '@/components/modals/PersonalizeModal';
 
 export default function PersonalizeButton() {

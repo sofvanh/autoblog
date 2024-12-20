@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { useUserContext } from './UserContext';
+import { useUserContext } from '@/components/contexts/UserContext';
 import { fetchModifiedMarkdown } from '@/utils/aiApiConnector';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import ToggleButton from './ToggleButton';

@@ -1,5 +1,5 @@
 import { getMarkdownContent } from '@/utils/markdownLoader';
-import { MarkdownCustomizer } from '@/components/MarkdownCustomizer';
+import { MarkdownCustomizer } from '@/components/post/MarkdownCustomizer';
 import { notFound } from 'next/navigation';
 
 export default async function MarkdownPage({ params }: { params: { slug: string } }) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Modal from './Modal';
 import { PRESET_OPTIONS } from '@/types/personalization';
-import { useUserContext } from '@/components/UserContext';
+import { useUserContext } from '@/components/contexts/UserContext';
 
 
 // TODO: Warn before exiting without saving (and if exiting without saving, reset selected options)

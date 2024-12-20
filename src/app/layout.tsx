@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import TopBar from "@/components/TopBar";
-import { UserProvider } from "@/components/UserContext";
+import TopBar from "@/components/topBar/TopBar";
+import { UserProvider } from "@/components/contexts/UserContext";
 import { Inter, Newsreader, Patrick_Hand_SC } from 'next/font/google';
 
 const inter = Inter({
