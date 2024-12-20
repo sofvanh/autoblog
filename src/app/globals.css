@@ -26,6 +26,14 @@
   }
 
   .btn-close {
-    @apply w-11 h-11 text-emerald-700 hover:text-emerald-600;
+    @apply w-11 h-11 hover:opacity-80 transition-colors;
+  }
+
+  .btn-close-emerald {
+    @apply btn-close text-emerald-700 hover:text-emerald-600;
+  }
+
+  .btn-close-rose {
+    @apply btn-close text-rose-700 hover:text-rose-600;
   }
 }

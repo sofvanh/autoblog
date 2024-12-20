@@ -66,7 +66,7 @@ export function PersonalizedPost({ markdown, slug }: PersonalizedPostProps) {
     <>
       <PostMetadata metadata={data} />
       <AiDisclaimer />
-      <div className="text-sm text-gray-500 flex items-center gap-2">
+      <div className="text-sm text-gray-500 flex items-center gap-2 mt-6">
         <span>
           Generated on {new Intl.DateTimeFormat('en-US', {
             dateStyle: 'medium',
