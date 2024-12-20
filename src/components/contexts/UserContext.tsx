@@ -8,6 +8,7 @@ interface UserContextProps {
   customPrompt: string;
   userDescription: string;
   selectedOptions: string[];
+  userHasWishes: boolean;
   updateUserWishes: (newOptions: string[], newCustomPrompt: string) => void;
 }
 
@@ -21,6 +22,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [customPrompt, setCustomPrompt] = useState<string>('');
   const [userDescription, setUserDescription] = useState<string>('');
+  const [userHasWishes, setUserHasWishes] = useState<boolean>(false);
 
   useEffect(() => {
     const options = localStorage.getItem('selectedOptions') || '[]';
@@ -30,6 +32,10 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     setCustomPrompt(prompt);
     setUserDescription(description);
   }, []);
+
+  useEffect(() => {
+    setUserHasWishes(selectedOptions.length > 0 || customPrompt !== '');
+  }, [selectedOptions, customPrompt]);
 
   const optionsChanged = (newOptions: string[], oldOptions: string[]): boolean => {
     const changed = JSON.stringify(newOptions) !== JSON.stringify(oldOptions);
@@ -66,7 +72,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ customPrompt, userDescription, selectedOptions, updateUserWishes }}>
+    <UserContext.Provider value={{ customPrompt, userDescription, selectedOptions, userHasWishes, updateUserWishes }}>
       {children}
     </UserContext.Provider>
   );
