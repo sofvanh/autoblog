@@ -3,13 +3,12 @@
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import { fetchUserDescription } from '@/utils/aiApiConnector';
 
+
 interface UserContextProps {
   customPrompt: string;
   userDescription: string;
   selectedOptions: string[];
-  setCustomPrompt: (prompt: string) => void;
-  setUserDescription: (description: string) => void;
-  setSelectedOptions: (options: string[]) => void;
+  updateUserWishes: (newOptions: string[], newCustomPrompt: string) => void;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -19,45 +18,55 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [customPrompt, setCustomPrompt] = useState<string>('');
   const [userDescription, setUserDescription] = useState<string>('');
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   useEffect(() => {
-    const savedPrompt = localStorage.getItem('prompt') || '';
-    const savedDescription = localStorage.getItem('userDescription') || '';
-    const savedOptions = JSON.parse(localStorage.getItem('selectedOptions') || '[]');
-    setCustomPrompt(savedPrompt);
-    setUserDescription(savedDescription);
-    setSelectedOptions(savedOptions);
+    const options = localStorage.getItem('selectedOptions') || '[]';
+    const prompt = localStorage.getItem('prompt') || '';
+    const description = localStorage.getItem('userDescription') || '';
+    setSelectedOptions(JSON.parse(options));
+    setCustomPrompt(prompt);
+    setUserDescription(description);
   }, []);
 
-  useEffect(() => {
-    const previousPrompt = localStorage.getItem('prompt');
-    const previousOptions = JSON.parse(localStorage.getItem('selectedOptions') || '[]');
-    if (customPrompt === previousPrompt && selectedOptions === previousOptions) {
-      return;
-    }
+  const optionsChanged = (newOptions: string[], oldOptions: string[]): boolean => {
+    const changed = JSON.stringify(newOptions) !== JSON.stringify(oldOptions);
+    return changed;
+  }
 
-    localStorage.setItem('prompt', customPrompt);
-    localStorage.setItem('selectedOptions', JSON.stringify(selectedOptions));
-    if (selectedOptions.length > 0 || customPrompt) {
-      setUserDescription('loading...');
-      fetchUserDescription(selectedOptions, customPrompt).then(response => {
-        setUserDescription(response.text);
-        localStorage.setItem('userDescription', response.text);
-      }).catch(error => {
-        console.error('Error fetching user description:', error);
-        setUserDescription('(error)');
-      });
-    } else {
-      setUserDescription('');
-      localStorage.removeItem('userDescription');
+  const updateUserWishes = (newOptions: string[], newCustomPrompt: string) => {
+    let changed = false;
+    if (optionsChanged(newOptions, selectedOptions)) {
+      setSelectedOptions(newOptions);
+      localStorage.setItem('selectedOptions', JSON.stringify(newOptions));
+      changed = true;
     }
-  }, [customPrompt, selectedOptions]);
+    if (newCustomPrompt !== customPrompt) {
+      setCustomPrompt(newCustomPrompt);
+      localStorage.setItem('prompt', newCustomPrompt);
+      changed = true;
+    }
+    if (changed) {
+      if (selectedOptions.length > 0 || customPrompt) {
+        setUserDescription('loading...');
+        fetchUserDescription(newOptions, newCustomPrompt).then(response => {
+          setUserDescription(response.text);
+          localStorage.setItem('userDescription', response.text);
+        }).catch(error => {
+          console.error('Error fetching user description:', error);
+          setUserDescription('(error)');
+        });
+      } else {
+        setUserDescription('');
+        localStorage.removeItem('userDescription');
+      }
+    }
+  }
 
   return (
-    <UserContext.Provider value={{ customPrompt, userDescription, selectedOptions, setCustomPrompt, setUserDescription, setSelectedOptions }}>
+    <UserContext.Provider value={{ customPrompt, userDescription, selectedOptions, updateUserWishes }}>
       {children}
     </UserContext.Provider>
   );

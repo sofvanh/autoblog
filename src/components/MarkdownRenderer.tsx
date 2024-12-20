@@ -32,7 +32,7 @@ export function MarkdownRenderer({ markdown, isModified = false }: MarkdownRende
   }, [data, metadata]);
 
   return (
-    <article className="pb-32 prose">
+    <article className="prose">
       {title && (
         <h1 className="text-2xl font-bold mb-4">{title}</h1>
       )}

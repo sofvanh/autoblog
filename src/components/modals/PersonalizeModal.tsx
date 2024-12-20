@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from './Modal';
 import { PRESET_OPTIONS } from '@/types/personalization';
 import { useUserContext } from '@/components/UserContext';
@@ -12,15 +12,18 @@ interface PersonalizeModalProps {
 }
 
 export default function PersonalizeModal({ isOpen, onClose }: PersonalizeModalProps) {
-  const { selectedOptions, customPrompt, setCustomPrompt, setSelectedOptions } = useUserContext();
+  const { selectedOptions, customPrompt, updateUserWishes } = useUserContext();
   const [localSelectedOptions, setLocalSelectedOptions] = useState<string[]>(selectedOptions);
+
+  useEffect(() => {
+    setLocalSelectedOptions(selectedOptions);
+  }, [selectedOptions]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const customPrompt = formData.get('background') as string;
-    setSelectedOptions(localSelectedOptions);
-    setCustomPrompt(customPrompt || '');
+    updateUserWishes(localSelectedOptions, customPrompt);
     onClose();
   };
   const toggleOption = (option: string) => {
