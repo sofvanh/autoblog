@@ -55,7 +55,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       changed = true;
     }
     if (changed) {
-      if (selectedOptions.length > 0 || customPrompt) {
+      if (newOptions.length > 0 || newCustomPrompt) {
+        console.log(newOptions, newCustomPrompt)
         setUserDescription('loading...');
         fetchUserDescription(newOptions, newCustomPrompt).then(response => {
           setUserDescription(response.text);
