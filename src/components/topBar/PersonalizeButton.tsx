@@ -11,11 +11,11 @@ export default function PersonalizeButton() {
   return (
     <>
       {userDescription ? (
-        <div className="flex items-center space-x-2">
-          <span className="text-sm text-emerald-800">Viewing as:</span>
+        <div className="flex flex-wrap items-center space-x-2">
+          <span className="text-sm text-emerald-800 whitespace-nowrap">Viewing as:</span>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-emerald-100 border border-emerald-300 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium hover:bg-emerald-200 transition-colors hover:border-emerald-400"
+            className="bg-emerald-100 border border-emerald-300 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium hover:bg-emerald-200 transition-colors hover:border-emerald-400 max-w-[200px] truncate"
           >
             {userDescription}
           </button>
