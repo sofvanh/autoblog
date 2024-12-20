@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { useUserContext } from '@/components/contexts/UserContext';
-import ToggleButton from './ToggleButton';
 import { PersonalizedPost } from './PersonalizedPost';
 import { VanillaPost } from './VanillaPost';
+import ToggleButton from '../buttons/ToggleButton';
 
 interface PostViewProps {
   initialContent: string;
