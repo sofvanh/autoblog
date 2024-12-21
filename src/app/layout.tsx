@@ -32,16 +32,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${patrickHandSC.variable} ${inter.variable} ${newsreader.variable}`}>
       <body suppressHydrationWarning={true}>
-        <div className={`${patrickHandSC.variable} ${inter.variable} ${newsreader.variable}`}>
-          <UserProvider>
-            <TopBar />
-            <div className="p-8 flex flex-col justify-center items-center">
-              {children}
-            </div>
-          </UserProvider>
-        </div>
+        <UserProvider>
+          <TopBar />
+          <div className="p-8 flex flex-col justify-center items-center">
+            {children}
+          </div>
+        </UserProvider>
       </body>
     </html>
   );

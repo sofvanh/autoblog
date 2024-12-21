@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  }
-
   h1 {
     @apply text-[3.2em] leading-[1.1];
   }

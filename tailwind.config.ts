@@ -13,9 +13,9 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['var(--font-newsreader)', 'serif'], // Not actually sans, but this is the default font
+        vanilla: ['Inter', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
         handwritten: ['var(--font-patrick-hand-sc)', 'cursive'],
-        ai: ['var(--font-newsreader)', 'serif'],
       },
     },
   },

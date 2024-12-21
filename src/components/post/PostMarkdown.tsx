@@ -14,8 +14,8 @@ export function PostMarkdown({ markdownContent, isModified }: PostMarkdown) {
         className={
           `mt-8 
         ${isModified ?
-            'font-ai' :
-            'font-handwritten text-xl'}`}
+            'font-ai text-lg' :
+            'font-mono text-sm text-gray-500'}`}
       >
         <ReactMarkdown
           components={{
