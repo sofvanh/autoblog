@@ -9,7 +9,7 @@ export default function TopBar() {
       <div className="px-8 flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0">
         <div className="flex items-center space-x-2">
           <Link href="/" className="text-xl bg-clip-text text-emerald-800">
-            Sofi's Working Notes
+            Autoblog Documentation
           </Link>
         </div>
 

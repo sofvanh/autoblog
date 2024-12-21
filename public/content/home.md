@@ -1,18 +1,8 @@
 ---
-title: Home
+title: Autoblog Documentation Home
 date: 2024-11-23
 ---
 
-# Sofi's notes
+**Autoblog** is an experimental interface meant to help writers *publish their most authentic thoughts* and readers *make sense of those thoughts in their unique context*. Inspired by [Live machinery](https://www.lesswrong.com/posts/9KamjXbTaQpPnNsxp/live-machinery-interface-design-workshop-for-ai-safety-ea), Autoblog *scales that which used to not be scalable*; That is, nuance, context, and personalization.
 
-Welcome to my live working notes. Inspired by [[Live machinery]], the notes here are unpolished but true to me; Through this website, they will adapt to you, the viewer. Many links are broken cuz I didn't add all my notes here yet, sorry about that
-
-I think (=write) about tech and AI, utopias, governance, biohacking, etc.
-
-Here are some places to get started:
-
-- [[Autoblog]], this blog, built at [[Live machinery workshop]]
-- [[Why improving the state of deliberation is important]]
-- [[AI for epistemics]]
-
-{{Here, put an inspiring quote.}}
+This website (Autoblog Documentation) not only provides documentation for those interested in [[Getting started|forking Autoblog for their own use]], but also functions as a working demo, as it's running on top of Autoblog. You can find the source code [here](https://github.com/sofvanh/autoblog).
