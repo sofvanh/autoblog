@@ -15,7 +15,6 @@ export default {
       fontFamily: {
         sans: ['var(--font-newsreader)', 'serif'], // Not actually sans, but this is the default font
         vanilla: ['Inter', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
-        handwritten: ['var(--font-patrick-hand-sc)', 'cursive'],
       },
     },
   },

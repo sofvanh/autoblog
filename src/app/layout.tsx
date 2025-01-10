@@ -2,23 +2,27 @@ import type { Metadata } from "next";
 import "./globals.css";
 import TopBar from "@/components/topBar/TopBar";
 import { UserProvider } from "@/components/contexts/UserContext";
-import { Inter, Newsreader, Patrick_Hand_SC } from 'next/font/google';
+import { Inter, Newsreader } from 'next/font/google';
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
+  preload: true,
+  adjustFontFallback: true,
+  fallback: ['system-ui', 'arial'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
 });
 const newsreader = Newsreader({
   subsets: ['latin'],
   variable: '--font-newsreader',
   display: 'swap',
-});
-const patrickHandSC = Patrick_Hand_SC({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-patrick-hand-sc',
-  display: 'swap',
+  preload: true,
+  adjustFontFallback: true,
+  fallback: ['Georgia', 'Times New Roman', 'serif'],
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
+  style: ['italic', 'normal'],
 });
 
 export const metadata: Metadata = {
@@ -32,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${patrickHandSC.variable} ${inter.variable} ${newsreader.variable}`}>
+    <html lang="en" className={`${inter.variable} ${newsreader.variable}`}>
       <body suppressHydrationWarning={true}>
         <UserProvider>
           <TopBar />
