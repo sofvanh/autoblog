@@ -3,6 +3,7 @@ import "./globals.css";
 import TopBar from "@/components/topBar/TopBar";
 import { UserProvider } from "@/components/contexts/UserContext";
 import { Inter, Newsreader } from 'next/font/google';
+import Footer from "@/components/footer/Footer";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -37,12 +38,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${newsreader.variable}`}>
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true} className="min-h-screen flex flex-col">
         <UserProvider>
           <TopBar />
-          <div className="p-8 flex flex-col justify-center items-center">
+          <main className="flex-grow p-8 flex flex-col justify-center items-center">
             {children}
-          </div>
+          </main>
+          <Footer />
         </UserProvider>
       </body>
     </html>

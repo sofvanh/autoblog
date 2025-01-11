@@ -9,7 +9,7 @@ export default function ToggleButton({ showModified, toggleContent, optionOne, o
   return (
     <button
       onClick={toggleContent}
-      className="fixed bottom-12 left-1/2 transform -translate-x-1/2 flex items-center space-x-3 bg-white px-4 py-2 rounded-full shadow-lg border border-emerald-200 hover:bg-emerald-50 transition-colors"
+      className="fixed bottom-16 left-1/2 transform -translate-x-1/2 flex items-center space-x-3 bg-white px-4 py-2 rounded-full shadow-lg border border-emerald-200 hover:bg-emerald-50 transition-colors"
     >
       <span className="text-sm font-medium text-emerald-800">
         {optionOne}

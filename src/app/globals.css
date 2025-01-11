@@ -10,6 +10,10 @@
   .no-scroll {
     overflow: hidden;
   }
+
+  a {
+    @apply font-medium underline;
+  }
 }
 
 @layer components {
