@@ -1,17 +1,21 @@
 import { Anthropic } from "@anthropic-ai/sdk";
 
-const anthropicApiKey = process.env.ANTHROPIC_API_KEY;
 const model = 'claude-3-5-sonnet-20241022';
 
-if (!anthropicApiKey) {
-  throw new Error('API key is missing');
-}
-
-const anthropic = new Anthropic({
-  apiKey: anthropicApiKey,
-});
-
 export async function generate(prompt: string, maxTokens: number) {
+  const anthropicApiKey = process.env.ANTHROPIC_API_KEY;
+
+  if (!anthropicApiKey) {
+    return new Response(JSON.stringify({ error: 'API key is missing' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const anthropic = new Anthropic({
+    apiKey: anthropicApiKey,
+  });
+
   try {
     const response = await anthropic.messages.create({
       model: model,
