@@ -16,6 +16,10 @@ The AI will take this poorly-written documentation, clean it up, and modify it t
 
 A good page to experiment with might be [[live-machinery-workshop]], my actual working log from the hackathon where I built the prototype of this.
 
+### Author-side prompt
+
+Right now the prompt defined in the source, that's sent to the AI along with the note, is doing a lot of heavy lifting and might nullify some of the user-side wishes. See what it contains [here](https://github.com/sofvanh/autoblog/blob/main/src/app/api/generate/route.ts).
+
 ## But why?
 
 The basic use case is something like this: Author has a strong note-taking habit and has lots of good thoughts and notes in Obsidian or some other (markdown-based) note-taking system. They want to share their notes, but they're not interested in spending time cleaning up their notes for people without all the background knowledge they have! Imagine a rocket scientist wanting to publish their work-in-progress notes about their next cool rocket innovation, but then having to spend time writing about basic aerodynamic for the noob readers who might find their blog.
