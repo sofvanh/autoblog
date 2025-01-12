@@ -3,15 +3,20 @@ title: Live Machinery Workshop
 date: 2024-11-23
 ---
 
+## Explanation
+
 **I want to give people access to the depths of my mind** {{don't edit this line}}
 
-Building [[Autoblog]].
+As part of the [Live machinery workshop](https://www.lesswrong.com/s/aMz2JMvgXrLBkq4h3/p/9KamjXbTaQpPnNsxp), I'm making an app exploring live interfaces / autostructures in blogging. Authors can just dump in their messy working notes, with maybe some 'prayers' about how they're displayed. Users describe themselves to the AI which then on the frontend side regenerates each note as the user views them, fit for the eyes for that person.
 
 ### Architecture
 - React App, self-hosted
 - Initially no backend; Markdown files are kept in a folder and then get rendered dynamically
 - Author / host covers API costs; Maybe add a limit for # of API calls in a day?
 	- Final version should store generated pages - maybe in user's LocalStorage? - so they don't get regenerated every time
+
+(old)
+Stack: React, TypeScript, Tailwind, Vite. Anthropic API. React Context API. Demo version can be without server; Final version should def incoroporate backend.
 
 ### Hackathon plan
 - [x] React app that turns a single Markdown file into a page (3 pomodoros)
