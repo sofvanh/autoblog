@@ -7,29 +7,26 @@ interface PostMarkdown {
 }
 
 export function PostMarkdown({ markdownContent, isModified }: PostMarkdown) {
-
   return (
-    <article className="prose">
-      <div
-        className={
-          `mt-8 
+    <div
+      className={
+        `prose-lg mt-8 
         ${isModified ?
-            'font-ai text-lg' :
-            'font-mono text-sm text-gray-500'}`}
+          'font-ai text-lg' :
+          'font-mono text-sm text-gray-500'}`}
+    >
+      <ReactMarkdown
+        components={{
+          a: ({ href, children }) => {
+            if (href?.startsWith('/')) {
+              return <Link href={href}>{children}</Link>;
+            }
+            return <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
+          },
+        }}
       >
-        <ReactMarkdown
-          components={{
-            a: ({ href, children }) => {
-              if (href?.startsWith('/')) {
-                return <Link href={href}>{children}</Link>;
-              }
-              return <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
-            },
-          }}
-        >
-          {markdownContent}
-        </ReactMarkdown>
-      </div>
-    </article>
+        {markdownContent}
+      </ReactMarkdown>
+    </div>
   )
 }

@@ -3,8 +3,6 @@
 import { BiRefresh } from 'react-icons/bi';
 import { AiDisclaimer } from './AiDisclaimer';
 import { PostMarkdown } from './PostMarkdown';
-import { PostMetadata } from './PostMetadata';
-import matter from 'gray-matter';
 import { getCachedPage } from '@/utils/pageCache';
 import { useEffect } from 'react';
 import { cachePage } from '@/utils/pageCache';
@@ -19,7 +17,6 @@ interface PersonalizedPostProps {
 }
 
 export function PersonalizedPost({ markdown, slug }: PersonalizedPostProps) {
-  const { data, content } = matter(markdown ?? '')
   const [modifiedContent, setModifiedContent] = useState('');
   const { selectedOptions, customPrompt, userHasWishes } = useUserContext();
   const [cachedPage, setCachedPage] = useState<CachedPage | null>(null);
@@ -28,7 +25,7 @@ export function PersonalizedPost({ markdown, slug }: PersonalizedPostProps) {
   const generatePersonalizedContent = () => {
     setIsGenerating(true);
     const cacheKey = `${slug}_${selectedOptions.join('_')}_${customPrompt}`;
-    fetchModifiedMarkdown(content, selectedOptions, customPrompt)
+    fetchModifiedMarkdown(markdown, selectedOptions, customPrompt)
       .then(response => {
         const newCachedPage = cachePage(cacheKey, response.text);
         setCachedPage(newCachedPage);
@@ -64,7 +61,6 @@ export function PersonalizedPost({ markdown, slug }: PersonalizedPostProps) {
 
   return (
     <>
-      <PostMetadata metadata={data} />
       <AiDisclaimer />
       <div className="text-sm text-gray-500 flex items-center gap-2 mt-6 h-6">
         <span>
