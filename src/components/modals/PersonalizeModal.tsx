@@ -61,7 +61,7 @@ export default function PersonalizeModal({ isOpen, onClose }: PersonalizeModalPr
         <textarea
           name="background"
           className="w-full p-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all bg-white text-sm"
-          placeholder="Additional information about your background, interests, and preferences"
+          placeholder="Additional wishes, e.g. 'translate to Finnish', 'use very simple language', 'explain all jargon carefully'"
           defaultValue={customPrompt}
         />
         <div className="flex justify-end gap-3 mt-4">
