@@ -27,8 +27,8 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Autoblog",
-  description: "Your personal blog with AI assistance",
+  title: "Autoblog Documentation",
+  description: "Autostructures blogging",
 };
 
 export default function RootLayout({
