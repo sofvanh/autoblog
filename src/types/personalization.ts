@@ -4,6 +4,7 @@ export const PRESET_OPTIONS: string[] = [
   "Autostructures/Live theory",
   "I have a technical background",
   "I have a design background",
-  "Make everything more concise",
-  "Describe with emojis as much as possible"
+  "Make everything a lot more concise",
+  "Describe with emojis as much as possible",
+  "Explain Like I'm 5"
 ];
