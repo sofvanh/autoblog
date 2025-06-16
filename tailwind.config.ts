@@ -13,7 +13,7 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        sans: ['var(--font-newsreader)', 'serif'], // Not actually sans, but this is the default font
+        sans: ['var(--font-crimson-text)', 'serif'], // Not actually sans, but this is the default font
         vanilla: ['Inter', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
       },
     },
