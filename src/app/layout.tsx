@@ -29,6 +29,9 @@ const crimsonText = Crimson_Text({
 export const metadata: Metadata = {
   title: "Autoblog Documentation",
   description: "Autostructures blogging",
+  alternates: {
+    canonical: "https://autoblog.sofiavanhanen.fi",
+  },
 };
 
 export default function RootLayout({
