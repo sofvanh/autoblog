@@ -6,7 +6,7 @@ export default async function Home() {
   try {
     const content = await getMarkdownContent('home');
     return <PostView initialContent={content} slug="home" />;
-  } catch (error) {
+  } catch {
     notFound();
   }
 }

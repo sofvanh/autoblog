@@ -6,7 +6,7 @@ export default async function MarkdownPage({ params }: { params: { slug: string 
   try {
     const content = await getMarkdownContent(params.slug);
     return <PostView initialContent={content} slug={params.slug} />;
-  } catch (error) {
+  } catch {
     notFound();
   }
 }

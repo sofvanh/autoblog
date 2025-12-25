@@ -7,7 +7,7 @@ export async function getMarkdownContent(slug: string) {
     const fullPath = path.join(contentDirectory, `${slug}.md`);
     const fileContent = await fs.readFile(fullPath, 'utf8');
     return processWikiLinks(fileContent);
-  } catch (error) {
+  } catch {
     throw new Error(`File not found: ${slug}`);
   }
 }

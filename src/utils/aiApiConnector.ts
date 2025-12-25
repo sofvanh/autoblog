@@ -1,6 +1,3 @@
-import { Anthropic } from "@anthropic-ai/sdk";
-
-
 interface AIResponse {
   text: string;
 }

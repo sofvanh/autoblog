@@ -2,18 +2,18 @@
 
 import { useEffect, useState } from "react";
 
-export function PostMetadata({ metadata }: { metadata: { [key: string]: any } }) {
-  const [title, setTitle] = useState<string | undefined>(metadata?.title);
-  const [date, setDate] = useState<Date | undefined>(metadata?.date);
-  const [remainingMetadata, setRemainingMetadata] = useState<[string, any][]>([]);
+export function PostMetadata({ metadata }: { metadata: Record<string, unknown> }) {
+  const [title, setTitle] = useState<string | undefined>(metadata?.title as string | undefined);
+  const [date, setDate] = useState<Date | undefined>(metadata?.date as Date | undefined);
+  const [remainingMetadata, setRemainingMetadata] = useState<[string, unknown][]>([]);
 
   useEffect(() => {
     if (metadata) {
       if (metadata.date) {
-        setDate(metadata.date);
+        setDate(metadata.date as Date);
       }
       if (metadata.title) {
-        setTitle(metadata.title);
+        setTitle(metadata.title as string);
       }
       const remainingData = Object.entries(metadata).filter(([key]) => key !== 'date' && key !== 'title');
       if (JSON.stringify(remainingData) !== JSON.stringify(remainingMetadata)) {
@@ -36,7 +36,7 @@ export function PostMetadata({ metadata }: { metadata: { [key: string]: any } })
               <div key={key}>
                 <span>{key}: </span>
                 <span>
-                  {Array.isArray(value) ? value.join(', ') : value.toString()}
+                  {Array.isArray(value) ? value.join(', ') : String(value)}
                 </span>
               </div>
             ))}

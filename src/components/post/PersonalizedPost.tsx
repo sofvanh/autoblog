@@ -4,9 +4,8 @@ import { BiRefresh } from 'react-icons/bi';
 import { AiDisclaimer } from './AiDisclaimer';
 import { PostMarkdown } from './PostMarkdown';
 import { getCachedPage } from '@/utils/pageCache';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { cachePage } from '@/utils/pageCache';
-import { useState } from 'react';
 import { useUserContext } from '../contexts/UserContext';
 import { CachedPage } from '@/utils/pageCache';
 import { fetchModifiedMarkdown } from '@/utils/aiApiConnector';
@@ -22,7 +21,7 @@ export function PersonalizedPost({ markdown, slug }: PersonalizedPostProps) {
   const [cachedPage, setCachedPage] = useState<CachedPage | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const generatePersonalizedContent = () => {
+  const generatePersonalizedContent = useCallback(() => {
     setIsGenerating(true);
     const cacheKey = `${slug}_${selectedOptions.join('_')}_${customPrompt}`;
     fetchModifiedMarkdown(markdown, selectedOptions, customPrompt)
@@ -39,7 +38,7 @@ export function PersonalizedPost({ markdown, slug }: PersonalizedPostProps) {
       .finally(() => {
         setIsGenerating(false);
       });
-  }
+  }, [slug, selectedOptions, customPrompt, markdown]);
 
   useEffect(() => {
     if (slug && markdown && userHasWishes) {
@@ -57,7 +56,7 @@ export function PersonalizedPost({ markdown, slug }: PersonalizedPostProps) {
       setCachedPage(null)
       setModifiedContent('');
     }
-  }, [markdown, selectedOptions, customPrompt, slug, setCachedPage, setModifiedContent, userHasWishes]);
+  }, [markdown, selectedOptions, customPrompt, slug, userHasWishes, generatePersonalizedContent]);
 
   return (
     <>
