@@ -2,10 +2,11 @@ import { PostView } from '@/components/post/PostView';
 import { getMarkdownContent } from '@/utils/markdownLoader';
 import { notFound } from 'next/navigation';
 
-export default async function MarkdownPage({ params }: { params: { slug: string } }) {
+export default async function MarkdownPage({ params }: { params: Promise<{ slug: string }> }) {
   try {
-    const content = await getMarkdownContent(params.slug);
-    return <PostView initialContent={content} slug={params.slug} />;
+    const { slug } = await params;
+    const content = await getMarkdownContent(slug);
+    return <PostView initialContent={content} slug={slug} />;
   } catch {
     notFound();
   }
