@@ -45,7 +45,7 @@ export function PostMetadata({ metadata }: { metadata: Record<string, unknown> }
         {date && (
           <div>
             <span>Date: </span>
-            <span>{date.toLocaleDateString()}</span>
+            <span>{date.toLocaleDateString('en-US')}</span>
           </div>
         )}
       </div>
